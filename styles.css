@@ -151,7 +151,8 @@ button {
 .aloe-hero {
   --ingredient-size: 234px;
   --ingredient-bottom-space: 96px;
-  --ingredient-split-offset: calc(var(--ingredient-bottom-space) + (var(--ingredient-size) / 2));
+  --ingredient-overlap: calc(var(--ingredient-size) / 2);
+  --ingredient-green-offset: calc(var(--ingredient-bottom-space) + var(--ingredient-overlap));
   position: relative;
   min-height: 850px;
   overflow: hidden;
@@ -171,7 +172,7 @@ button {
 
 .aloe-bg {
   position: absolute;
-  inset: 0 0 var(--ingredient-split-offset);
+  inset: 0 0 var(--ingredient-green-offset);
   background-image:
     linear-gradient(70deg, rgba(0, 0, 0, 0) 39%, rgba(34, 57, 35, 0.3) 118%),
     linear-gradient(178deg, rgba(0, 0, 0, 0) 39%, rgba(4, 4, 4, 0.8) 90%),
@@ -185,8 +186,8 @@ button {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: calc(var(--ingredient-split-offset) * -1);
-  height: calc(var(--ingredient-split-offset) * 2);
+  bottom: calc(var(--ingredient-green-offset) * -1);
+  height: var(--ingredient-green-offset);
   background: var(--green);
 }
 
@@ -252,7 +253,9 @@ button {
   justify-content: center;
   max-width: var(--max);
   margin: 0 auto;
-  padding: 0 16px var(--ingredient-bottom-space);
+  padding: 0 16px calc(var(--ingredient-bottom-space) - var(--ingredient-overlap));
+  transform: translateY(calc(var(--ingredient-overlap) * -1));
+  margin-bottom: calc(var(--ingredient-overlap) * -1);
 }
 
 .ingredient-viewport {
