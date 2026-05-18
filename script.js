@@ -1,3 +1,29 @@
+const aloeHero = document.querySelector(".aloe-hero");
+const aloeBg = document.querySelector(".aloe-bg");
+
+if (aloeHero && aloeBg) {
+  let aboutParallaxFrame;
+
+  const updateAboutParallax = () => {
+    aboutParallaxFrame = undefined;
+    const rect = aloeHero.getBoundingClientRect();
+    const viewportHeight = window.innerHeight || 1;
+    const progress = (viewportHeight - rect.top) / (viewportHeight + rect.height);
+    const clamped = Math.max(0, Math.min(1, progress));
+    const offset = (clamped - 0.5) * 260;
+    aloeBg.style.setProperty("--about-parallax", `${offset.toFixed(2)}px`);
+  };
+
+  const requestAboutParallax = () => {
+    if (aboutParallaxFrame) return;
+    aboutParallaxFrame = window.requestAnimationFrame(updateAboutParallax);
+  };
+
+  window.addEventListener("scroll", requestAboutParallax, { passive: true });
+  window.addEventListener("resize", requestAboutParallax);
+  requestAboutParallax();
+}
+
 const heroBanner = document.querySelector(".hero-banner");
 const heroTrack = document.querySelector(".hero-track");
 const heroDots = [...document.querySelectorAll(".hero-dots button")];
@@ -159,4 +185,110 @@ if (ingredientViewport && ingredientTrack && prevIngredient && nextIngredient) {
   ingredientViewport.scrollLeft = 0;
   updateButtons();
   startAutoSlide();
+}
+
+const reviewViewport = document.querySelector('.review-viewport');
+const reviewTrack = document.querySelector('.review-track');
+const reviewDotsContainer = document.querySelector('.review-dots');
+
+if (reviewViewport && reviewTrack && reviewDotsContainer) {
+  let reviewAutoSlideTimer;
+  let reviewIsDragging = false;
+  let reviewDragStartX = 0;
+  let reviewDragStartScrollLeft = 0;
+
+  const getReviewGap = () => Number.parseFloat(getComputedStyle(reviewTrack).gap) || 0;
+  const getReviewCard = () => reviewTrack.querySelector('.video-card');
+  const getReviewStep = () => {
+    const card = getReviewCard();
+    if (!card) return reviewViewport.clientWidth;
+    return card.getBoundingClientRect().width + getReviewGap();
+  };
+  const getReviewsPerPage = () => {
+    const step = getReviewStep();
+    return Math.max(1, Math.round((reviewViewport.clientWidth + getReviewGap()) / step));
+  };
+  const getReviewPageCount = () => Math.max(1, Math.ceil(reviewTrack.children.length / getReviewsPerPage()));
+  const getReviewPage = () => Math.round(reviewViewport.scrollLeft / (getReviewStep() * getReviewsPerPage()));
+
+  const getReviewDots = () => [...reviewDotsContainer.querySelectorAll('button')];
+
+  const renderReviewDots = () => {
+    const pageCount = getReviewPageCount();
+    reviewDotsContainer.innerHTML = '';
+    Array.from({ length: pageCount }, (_, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `ชุดรีวิว ${index + 1}`);
+      dot.addEventListener('click', () => {
+        goToReviewPage(index);
+        startReviewAutoSlide();
+      });
+      reviewDotsContainer.append(dot);
+    });
+  };
+
+  const updateReviewDots = () => {
+    const reviewDots = getReviewDots();
+    const page = Math.min(reviewDots.length - 1, getReviewPage());
+    reviewDots.forEach((dot, index) => dot.classList.toggle('is-active', index === page));
+  };
+
+  const goToReviewPage = (page) => {
+    reviewViewport.scrollTo({ left: getReviewStep() * getReviewsPerPage() * page, behavior: 'smooth' });
+  };
+
+  const startReviewAutoSlide = () => {
+    window.clearInterval(reviewAutoSlideTimer);
+    reviewAutoSlideTimer = window.setInterval(() => {
+      const pageCount = getReviewPageCount();
+      const nextPage = (getReviewPage() + 1) % pageCount;
+      goToReviewPage(nextPage);
+    }, 3600);
+  };
+
+  const pauseReviewAutoSlide = () => window.clearInterval(reviewAutoSlideTimer);
+
+  reviewViewport.addEventListener('pointerdown', (event) => {
+    if (event.pointerType !== 'mouse') return;
+    reviewIsDragging = true;
+    reviewDragStartX = event.clientX;
+    reviewDragStartScrollLeft = reviewViewport.scrollLeft;
+    reviewViewport.classList.add('is-dragging');
+    reviewViewport.setPointerCapture(event.pointerId);
+    pauseReviewAutoSlide();
+  });
+
+  reviewViewport.addEventListener('pointermove', (event) => {
+    if (!reviewIsDragging) return;
+    reviewViewport.scrollLeft = reviewDragStartScrollLeft - (event.clientX - reviewDragStartX);
+  });
+
+  const endReviewDrag = (event) => {
+    if (!reviewIsDragging) return;
+    reviewIsDragging = false;
+    reviewViewport.classList.remove('is-dragging');
+    if (event.pointerId !== undefined && reviewViewport.hasPointerCapture(event.pointerId)) {
+      reviewViewport.releasePointerCapture(event.pointerId);
+    }
+    startReviewAutoSlide();
+  };
+
+  reviewViewport.addEventListener('pointerup', endReviewDrag);
+  reviewViewport.addEventListener('pointercancel', endReviewDrag);
+  reviewViewport.addEventListener('mouseenter', pauseReviewAutoSlide);
+  reviewViewport.addEventListener('mouseleave', () => {
+    if (!reviewIsDragging) startReviewAutoSlide();
+  });
+  reviewViewport.addEventListener('focusin', pauseReviewAutoSlide);
+  reviewViewport.addEventListener('focusout', startReviewAutoSlide);
+  reviewViewport.addEventListener('scroll', updateReviewDots, { passive: true });
+  window.addEventListener('resize', () => {
+    renderReviewDots();
+    updateReviewDots();
+  });
+
+  renderReviewDots();
+  updateReviewDots();
+  startReviewAutoSlide();
 }

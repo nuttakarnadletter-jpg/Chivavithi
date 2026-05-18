@@ -52,7 +52,7 @@
       </section>
 
       <section class="aloe-hero">
-        <div class="aloe-bg"></div>
+        <div class="aloe-bg-window"><div class="aloe-bg"></div></div>
         <div class="aloe-content">
           <h1>
             <span>ผสานคุณค่าภูมิปัญญาไทย</span>
@@ -91,6 +91,18 @@
               <article class="ingredient-card" tabindex="0">
                 <img src="assets/ingredient-07.jpg" alt="Butterfly pea" />
                 <span>BUTTERFLY PEA</span>
+              </article>
+              <article class="ingredient-card" tabindex="0">
+                <img src="assets/ingredient-08.jpg" alt="Turmeric" />
+                <span>TURMERIC</span>
+              </article>
+              <article class="ingredient-card" tabindex="0">
+                <img src="assets/ingredient-09.jpg" alt="Honey dipper" />
+                <span>HONEY</span>
+              </article>
+              <article class="ingredient-card" tabindex="0">
+                <img src="assets/ingredient-10.jpg" alt="Rice" />
+                <span>RICE</span>
               </article>
             </div>
           </div>
@@ -176,17 +188,28 @@
       </section>
 
       <section class="reviews" id="reviews">
+        <img class="review-decor-right" src="assets/element-line-right.svg" alt="" />
         <h2>เสียงตอบรับจากผู้ใช้</h2>
-        <div class="review-grid">
-          <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 1"><img src="assets/review-1.jpg" alt="" /><span></span></button>
-          <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 2"><img src="assets/review-2.jpg" alt="" /><span></span></button>
-          <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 3"><img src="assets/review-3.jpg" alt="" /><span></span></button>
-          <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 4"><img src="assets/review-4.jpg" alt="" /><span></span></button>
+        <div class="review-viewport" aria-label="วิดีโอรีวิวจากผู้ใช้">
+          <div class="review-track">
+            <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 1"><img src="assets/review-1.jpg" alt="" /><span></span></button>
+            <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 2"><img src="assets/review-2.jpg" alt="" /><span></span></button>
+            <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 3"><img src="assets/review-3.jpg" alt="" /><span></span></button>
+            <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 4"><img src="assets/review-4.jpg" alt="" /><span></span></button>
+            <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 5"><img src="assets/review-1.jpg" alt="" /><span></span></button>
+            <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 6"><img src="assets/review-2.jpg" alt="" /><span></span></button>
+            <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 7"><img src="assets/review-3.jpg" alt="" /><span></span></button>
+            <button class="video-card" type="button" aria-label="เล่นวิดีโอรีวิว 8"><img src="assets/review-4.jpg" alt="" /><span></span></button>
+          </div>
         </div>
-        <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="dots review-dots" aria-label="สไลด์รีวิว">
+          <button class="is-active" type="button" aria-label="ชุดรีวิว 1"></button>
+          <button type="button" aria-label="ชุดรีวิว 2"></button>
+        </div>
       </section>
 
       <section class="news" id="news">
+        <img class="news-decor news-decor-left" src="assets/element-line-left.svg" alt="" />
         <h2>ข่าวสารและกิจกรรม</h2>
         <div class="news-grid">
           <article class="news-card">
@@ -218,13 +241,9 @@
       </section>
 
       <section class="community" id="sustainability">
-        <div class="community-bg">
-          <img src="assets/community-5.jpg" alt="" />
-          <img src="assets/community-3.jpg" alt="" />
-          <img src="assets/community-4.jpg" alt="" />
-        </div>
+        <div class="community-bg"></div>
         <div class="community-circle">
-          <img src="assets/logo-footer.svg" alt="ชีววิถี" />
+          <img src="assets/logo-center.png" alt="ชีววิถี" />
           <h2>เราเติบโตไปพร้อมกับชุมชน</h2>
           <p>สนับสนุนวัตถุดิบจากเกษตรกรท้องถิ่น สร้างงาน สร้างอาชีพ และส่งเสริมวิถีอินทรีย์ เพื่อส่งต่อความยั่งยืนจากต้นน้ำสู่ผู้บริโภค</p>
           <a class="button button-outline" href="#sustainability">อ่านเพิ่มเติม</a>
@@ -235,7 +254,7 @@
     <footer class="footer" id="contact">
       <div class="footer-inner">
         <section class="footer-brand">
-          <img src="assets/logo-footer.svg" alt="ชีววิถี" />
+          <img src="assets/logo-w.png" alt="ชีววิถี" />
           <p><strong>บริษัท เซนต์ บิวตี้ คอสเมติก (ประเทศไทย) จำกัด</strong></p>
           <p>37/88 ม.4 ตำบลท่าตลาด อำเภอสามพราน จังหวัดนครปฐม 73110</p>
           <div class="social">
@@ -260,12 +279,22 @@
             <a href="#">ข่าวสารและกิจกรรม</a>
             <a href="#">ติดต่อเรา</a>
           </div>
-          <div>
+          <div class="contact-column">
             <h3>ข้อมูลติดต่อ</h3>
-            <p class="label">เบอร์โทรศัพท์</p>
-            <p class="phone">082-714-1084<br />084-884-5522 (034-325849)</p>
-            <p class="label">Email</p>
-            <p>chivavithi.sense@gmail.com</p>
+            <div class="contact-item">
+              <img src="assets/icon-phone.svg" alt="" />
+              <div>
+                <p class="label">เบอร์โทรศัพท์</p>
+                <p class="phone">082-714-1084<br />084-884-5522 (034-325849)</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <img src="assets/icon-mail.svg" alt="" />
+              <div>
+                <p class="label">Email</p>
+                <p>chivavithi.sense@gmail.com</p>
+              </div>
+            </div>
           </div>
         </nav>
       </div>
