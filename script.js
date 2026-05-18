@@ -292,3 +292,66 @@ if (reviewViewport && reviewTrack && reviewDotsContainer) {
   updateReviewDots();
   startReviewAutoSlide();
 }
+
+const siteHeader = document.querySelector('.site-header');
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+
+if (siteHeader && menuToggle && navLinks) {
+  const closeMenu = () => {
+    siteHeader.classList.remove('menu-open');
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-label', 'เปิดเมนู');
+  };
+
+  menuToggle.addEventListener('click', () => {
+    const willOpen = !siteHeader.classList.contains('menu-open');
+    siteHeader.classList.toggle('menu-open', willOpen);
+    menuToggle.setAttribute('aria-expanded', String(willOpen));
+    menuToggle.setAttribute('aria-label', willOpen ? 'ปิดเมนู' : 'เปิดเมนู');
+  });
+
+  navLinks.addEventListener('click', (event) => {
+    if (event.target instanceof HTMLAnchorElement) closeMenu();
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 560) closeMenu();
+  });
+}
+
+const ingredientDotsContainer = document.querySelector('.ingredient-dots');
+
+if (ingredientViewport && ingredientTrack && ingredientDotsContainer) {
+  const ingredientCards = [...ingredientTrack.querySelectorAll('.ingredient-card')];
+  const getIngredientGap = () => Number.parseFloat(getComputedStyle(ingredientTrack).gap) || 0;
+  const getIngredientStep = () => {
+    const card = ingredientCards[0];
+    if (!card) return ingredientViewport.clientWidth;
+    return card.getBoundingClientRect().width + getIngredientGap();
+  };
+
+  const renderIngredientDots = () => {
+    ingredientDotsContainer.innerHTML = '';
+    ingredientCards.forEach((_, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `วัตถุดิบ ${index + 1}`);
+      dot.addEventListener('click', () => {
+        ingredientViewport.scrollTo({ left: getIngredientStep() * index, behavior: 'smooth' });
+      });
+      ingredientDotsContainer.append(dot);
+    });
+  };
+
+  const updateIngredientDots = () => {
+    const dots = [...ingredientDotsContainer.querySelectorAll('button')];
+    const index = Math.min(dots.length - 1, Math.round(ingredientViewport.scrollLeft / getIngredientStep()));
+    dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
+  };
+
+  ingredientViewport.addEventListener('scroll', updateIngredientDots, { passive: true });
+  window.addEventListener('resize', updateIngredientDots);
+  renderIngredientDots();
+  updateIngredientDots();
+}
