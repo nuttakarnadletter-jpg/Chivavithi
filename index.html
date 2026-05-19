@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Header / Navigation -->
     <header class="site-header">
       <a class="brand" href="#" aria-label="ชีววิถี">
         <img src="assets/logo-nav.svg" alt="ชีววิถี" />
@@ -20,12 +21,33 @@
         <span></span>
       </button>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="#about">เกี่ยวกับเรา</a>
-        <a href="#sustainability">การพัฒนาที่ยั่งยืน</a>
+        <div class="nav-item has-submenu">
+          <button class="nav-trigger" type="button" aria-expanded="false">เกี่ยวกับเรา</button>
+          <div class="submenu">
+            <span>เกี่ยวกับเรา</span>
+            <a href="about-story.html">เรื่องราวของเรา</a>
+            <a href="#">วิสัยทัศน์และพันธกิจ</a>
+          </div>
+        </div>
+        <div class="nav-item has-submenu">
+          <button class="nav-trigger" type="button" aria-expanded="false">การพัฒนาที่ยั่งยืน</button>
+          <div class="submenu">
+            <span>การพัฒนาที่ยั่งยืน</span>
+            <a href="#">RM STORYTELLING</a>
+            <a href="#">SUSTAINABILITY COMMUNITY</a>
+          </div>
+        </div>
         <a href="#products">สินค้า</a>
         <a href="#services">บริการรับผลิต</a>
         <a href="#channels">ช่องทางจำหน่าย</a>
-        <a href="#standards">มาตรฐานและการรับรอง</a>
+        <div class="nav-item has-submenu">
+          <button class="nav-trigger" type="button" aria-expanded="false">มาตรฐานและการรับรอง</button>
+          <div class="submenu">
+            <span>มาตรฐานและการรับรอง</span>
+            <a href="#">มาตรฐานและรางวัล</a>
+            <a href="#">เอกสารข้อมูลผลิตภัณฑ์</a>
+          </div>
+        </div>
         <a href="#news">ข่าวสารและกิจกรรม</a>
         <a href="#reviews">รีวิวจากลูกค้า</a>
         <a href="#contact">ติดต่อเรา</a>
@@ -37,6 +59,7 @@
     </header>
 
     <main>
+      <!-- Hero banner slider -->
       <section class="hero-banner" id="about">
         <div class="hero-slider">
           <div class="hero-track">
@@ -56,6 +79,7 @@
         </div>
       </section>
 
+      <!-- About / Ingredient carousel -->
       <section class="aloe-hero">
         <div class="aloe-bg-window"><div class="aloe-bg"></div></div>
         <div class="aloe-content">
@@ -116,6 +140,7 @@
         <div class="dots ingredient-dots" aria-label="สไลด์วัตถุดิบ"></div>
       </section>
 
+      <!-- Product and service categories -->
       <section class="services-band" id="services">
         <h2>สินค้าและบริการ</h2>
         <div class="service-grid">
@@ -143,6 +168,7 @@
         </div>
       </section>
 
+      <!-- Featured products -->
       <section class="featured-products" id="products">
         <h2>สินค้ายอดนิยม</h2>
         <div class="product-grid">
@@ -166,6 +192,7 @@
         <a class="button button-green" href="#products">สินค้าทั้งหมด</a>
       </section>
 
+      <!-- Certifications -->
       <section class="standards" id="standards">
         <h2>มาตรฐานและการรับรอง</h2>
         <div class="standard-grid">
@@ -193,6 +220,7 @@
         </div>
       </section>
 
+      <!-- Customer review videos -->
       <section class="reviews" id="reviews">
         <img class="review-decor-right" src="assets/element-line-right.svg" alt="" />
         <h2>เสียงตอบรับจากผู้ใช้</h2>
@@ -214,6 +242,7 @@
         </div>
       </section>
 
+      <!-- News and activities -->
       <section class="news" id="news">
         <img class="news-decor news-decor-left" src="assets/element-line-left.svg" alt="" />
         <h2>ข่าวสารและกิจกรรม</h2>
@@ -246,6 +275,7 @@
         <a class="button button-green" href="#news">ดูทั้งหมด</a>
       </section>
 
+      <!-- Sustainability / Community CTA -->
       <section class="community" id="sustainability">
         <div class="community-bg"></div>
         <div class="community-circle">
@@ -257,6 +287,7 @@
       </section>
     </main>
 
+    <!-- Footer / Contact -->
     <footer class="footer" id="contact">
       <div class="footer-inner">
         <section class="footer-brand">
@@ -271,7 +302,7 @@
         <nav class="footer-nav" aria-label="Footer navigation">
           <div>
             <h3>เกี่ยวกับเรา</h3>
-            <a href="#">เรื่องราวของเรา</a>
+            <a href="about-story.html">เรื่องราวของเรา</a>
             <a href="#">วิสัยทัศน์ และ พันธกิจ</a>
             <a href="#">สินค้า</a>
             <a href="#">บริการรับผลิต</a>

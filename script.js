@@ -1,3 +1,4 @@
+/* About background parallax */
 const aloeHero = document.querySelector(".aloe-hero");
 const aloeBg = document.querySelector(".aloe-bg");
 
@@ -24,6 +25,7 @@ if (aloeHero && aloeBg) {
   requestAboutParallax();
 }
 
+/* Hero banner slider */
 const heroBanner = document.querySelector(".hero-banner");
 const heroTrack = document.querySelector(".hero-track");
 const heroDots = [...document.querySelectorAll(".hero-dots button")];
@@ -89,6 +91,7 @@ if (heroBanner && heroTrack && heroDots.length) {
   startHeroAutoSlide();
 }
 
+/* Ingredient carousel: arrows, auto-slide, and desktop drag */
 const ingredientViewport = document.querySelector(".ingredient-viewport");
 const ingredientTrack = document.querySelector(".ingredient-track");
 const prevIngredient = document.querySelector(".ingredient-carousel .prev");
@@ -187,6 +190,7 @@ if (ingredientViewport && ingredientTrack && prevIngredient && nextIngredient) {
   startAutoSlide();
 }
 
+/* Customer review carousel */
 const reviewViewport = document.querySelector('.review-viewport');
 const reviewTrack = document.querySelector('.review-track');
 const reviewDotsContainer = document.querySelector('.review-dots');
@@ -293,6 +297,7 @@ if (reviewViewport && reviewTrack && reviewDotsContainer) {
   startReviewAutoSlide();
 }
 
+/* Mobile hamburger menu */
 const siteHeader = document.querySelector('.site-header');
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
@@ -320,6 +325,7 @@ if (siteHeader && menuToggle && navLinks) {
   });
 }
 
+/* Ingredient dots for mobile and narrow viewports */
 const ingredientDotsContainer = document.querySelector('.ingredient-dots');
 
 if (ingredientViewport && ingredientTrack && ingredientDotsContainer) {
@@ -354,4 +360,34 @@ if (ingredientViewport && ingredientTrack && ingredientDotsContainer) {
   window.addEventListener('resize', updateIngredientDots);
   renderIngredientDots();
   updateIngredientDots();
+}
+
+/* Header level-2 submenu */
+const submenuItems = [...document.querySelectorAll('.nav-item.has-submenu')];
+
+if (submenuItems.length) {
+  const closeSubmenus = (exceptItem) => {
+    submenuItems.forEach((item) => {
+      if (item === exceptItem) return;
+      item.classList.remove('is-open');
+      item.querySelector('.nav-trigger')?.setAttribute('aria-expanded', 'false');
+    });
+  };
+
+  submenuItems.forEach((item) => {
+    const trigger = item.querySelector('.nav-trigger');
+    if (!trigger) return;
+
+    trigger.addEventListener('click', () => {
+      const shouldOpen = !item.classList.contains('is-open');
+      closeSubmenus(item);
+      item.classList.toggle('is-open', shouldOpen);
+      trigger.setAttribute('aria-expanded', String(shouldOpen));
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (event.target instanceof Element && event.target.closest('.nav-item.has-submenu')) return;
+    closeSubmenus();
+  });
 }
